@@ -1,0 +1,30 @@
+name: Update Vestaboard Solar Display
+
+# WHEN THIS RUNS:
+# 1. Automatically every 5 minutes (the "schedule" below)
+# 2. Manually, any time, via the "Run workflow" button in the
+#    Actions tab on GitHub - useful for testing
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
+
+jobs:
+  update-board:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run solar display script
+        env:
+          VESTABOARD_API_KEY: ${{ secrets.VESTABOARD_API_KEY }}
+        run: python solar_display.py
