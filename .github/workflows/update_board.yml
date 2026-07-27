@@ -28,3 +28,4 @@ jobs:
         env:
           VESTABOARD_API_KEY: ${{ secrets.VESTABOARD_API_KEY }}
         run: python solar_display.py
+
